@@ -1,4 +1,6 @@
-function generateMessage() {
+// function generateMessage() {
+/** Convert to arrow function */
+const generateMessage = () => {
     const user = {
         name: "Alice Johnson",
         email: "alice@example.com",

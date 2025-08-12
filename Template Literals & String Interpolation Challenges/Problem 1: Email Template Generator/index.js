@@ -24,11 +24,11 @@ const generateMessage = () => {
     const orderId = `Order ID: ${order.id}`;
     const address = `Shipping Address: ${order.shippingAddress}`;
 
-    const items = order.items.map(item => `- ${item.name} x${item.quantity} ........... $${parseFloat(item.price * item.quantity).toFixed(2)}`).join('\n');
+    const items = order.items.map(item => `- ${item.name} x${item.quantity} ........... $${(item.price * item.quantity).toFixed(2)}`).join('\n');
 
-    const subTotal = parseFloat(order.items.reduce((sum, item) => (item.price * item.quantity) + sum, 0).toFixed(2));
-    const tax = parseFloat((subTotal*order.taxRate).toFixed(2));
-    const total = (subTotal + tax).toFixed(2);
+    const subTotal = order.items.reduce((sum, item) => (item.price * item.quantity) + sum, 0);
+    const tax = subTotal*order.taxRate;
+    const total = subTotal + tax;
 
     const vip = `${user.isVIP ? `Current Loyalty Points: ${user.loyaltyPoints}` : ''}`;
 

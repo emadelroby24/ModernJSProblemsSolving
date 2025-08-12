@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Modern JavaScript Examples</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Interactive Modern JavaScript Examples</h1>
+        
+        <!-- Template Literals -->
+        <div class="section">
+            <h2>1. Template Literals & String Interpolation</h2>
+            <div class="example">
+                <h3>Dynamic Message Generator</h3>
+                <input type="text" id="userName" placeholder="Enter your name" value="Alice">
+                <input type="number" id="userAge" placeholder="Age" value="25">
+                <select id="greeting">
+                    <option value="Hello">Hello</option>
+                    <option value="Hi">Hi</option>
+                    <option value="Greetings">Greetings</option>
+                </select>
+                <button onclick="generateMessage()">Generate Message</button>
+                <div class="output" id="messageOutput"></div>
+            </div>
+        </div>
+
+        <!-- Arrow Functions & Array Methods -->
+        <div class="section">
+            <h2>2. Arrow Functions & Modern Array Methods</h2>
+            <div class="example">
+                <h3>Data Processing Pipeline</h3>
+                <button onclick="processNumbers()">Process Numbers</button>
+                <button onclick="processUsers()">Process Users</button>
+                <button onclick="chainOperations()">Chain Operations</button>
+                <div class="output" id="arrayOutput"></div>
+            </div>
+        </div>
+
+        <!-- Destructuring -->
+        <div class="section">
+            <h2>3. Destructuring Magic</h2>
+            <div class="example">
+                <h3>Extract Data</h3>
+                <button onclick="arrayDestructuring()">Array Destructuring</button>
+                <button onclick="objectDestructuring()">Object Destructuring</button>
+                <button onclick="nestedDestructuring()">Nested Destructuring</button>
+                <div class="output" id="destructuringOutput"></div>
+            </div>
+        </div>
+
+        <!-- Classes & Objects -->
+        <div class="section">
+            <h2>4. ES6 Classes & Enhanced Objects</h2>
+            <div class="example">
+                <h3>User Management System</h3>
+                <input type="text" id="newUserName" placeholder="Name" value="John">
+                <input type="email" id="newUserEmail" placeholder="Email" value="john@example.com">
+                <input type="number" id="newUserAge" placeholder="Age" value="30">
+                <button onclick="createUser()">Create User</button>
+                <button onclick="createStudent()">Create Student</button>
+                <div class="output" id="classOutput"></div>
+                <div id="userCards"></div>
+            </div>
+        </div>
+
+        <!-- Async/Await -->
+        <div class="section">
+            <h2>5. Promises & Async/Await</h2>
+            <div class="example">
+                <h3>API Simulation</h3>
+                <button onclick="fetchUserData()">Fetch User Data</button>
+                <button onclick="fetchMultipleData()">Fetch Multiple APIs</button>
+                <button onclick="handleErrors()">Handle Errors</button>
+                <div class="output" id="asyncOutput"></div>
+            </div>
+        </div>
+
+        <!-- Modern DOM Manipulation -->
+        <div class="section">
+            <h2>6. Modern DOM Manipulation</h2>
+            <div class="example">
+                <h3>Interactive Elements</h3>
+                <button onclick="createElements()">Create Elements</button>
+                <button onclick="addEventDelegation()">Add Event Delegation</button>
+                <div class="output" id="domOutput"></div>
+                <div id="dynamicContent"></div>
+            </div>
+        </div>
+
+        <!-- Spread & Rest -->
+        <div class="section">
+            <h2>7. Spread & Rest Operators</h2>
+            <div class="example">
+                <h3>Array & Object Operations</h3>
+                <button onclick="spreadArrays()">Spread Arrays</button>
+                <button onclick="spreadObjects()">Spread Objects</button>
+                <button onclick="restParameters()">Rest Parameters</button>
+                <div class="output" id="spreadOutput"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample data
+        const sampleUsers = [
+            { name: 'Alice', age: 25, email: 'alice@example.com', active: true, role: 'admin' },
+            { name: 'Bob', age: 30, email: 'bob@example.com', active: false, role: 'user' },
+            { name: 'Charlie', age: 35, email: 'charlie@example.com', active: true, role: 'user' },
+            { name: 'Diana', age: 28, email: 'diana@example.com', active: true, role: 'admin' }
+        ];
+        
+        let userInstances = [];
+
+        // 1. Template Literals
+        function generateMessage() {
+            const name = document.getElementById('userName').value;
+            const age = document.getElementById('userAge').value;
+            const greeting = document.getElementById('greeting').value;
+            
+            // Modern template literal with expression
+            const message = `${greeting}, my name is ${name}!
+            I am ${age} years old.
+            ${age >= 18 ? 'I am an adult 🧑‍💼' : 'I am a minor 👶'}
+            Current time: ${new Date().toLocaleTimeString()}
+            Next year I'll be ${parseInt(age) + 1} years old!`;
+            
+            document.getElementById('messageOutput').textContent = message;
+        }
+
+        // 2. Arrow Functions & Array Methods
+        function processNumbers() {
+            const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+            
+            const result = numbers
+                .filter(n => n % 2 === 0)  // Even numbers only
+                .map(n => n ** 2)          // Square them
+                .reduce((sum, n) => sum + n, 0); // Sum them up
+            
+            const output = `Original: [${numbers.join(', ')}]
+            Even numbers: [${numbers.filter(n => n % 2 === 0).join(', ')}]
+            Squared: [${numbers.filter(n => n % 2 === 0).map(n => n ** 2).join(', ')}]
+            Sum: ${result}`;
+            
+            document.getElementById('arrayOutput').textContent = output;
+        }
+        
+        function processUsers() {
+            const activeAdmins = sampleUsers
+                .filter(user => user.active)
+                .filter(user => user.role === 'admin')
+                .map(user => user.name);
+            
+            const averageAge = sampleUsers
+                .reduce((sum, user) => sum + user.age, 0) / sampleUsers.length;
+                
+            const usersByRole = sampleUsers.reduce((groups, user) => {
+                groups[user.role] = groups[user.role] || [];
+                groups[user.role].push(user.name);
+                return groups;
+            }, {});
+            
+            const output = `Active Admins: ${activeAdmins.join(', ')}
+Average Age: ${averageAge.toFixed(1)}
+Users by Role: ${JSON.stringify(usersByRole, null, 2)}`;
+            
+            document.getElementById('arrayOutput').textContent = output;
+        }
+        
+        function chainOperations() {
+            const data = [1, 2, 3, 4, 5];
+            
+            // Complex chaining example
+            const result = data
+                .map((n, index) => ({ value: n, index, doubled: n * 2 }))
+                .filter(obj => obj.doubled > 4)
+                .map(obj => `Item ${obj.index}: ${obj.value} → ${obj.doubled}`)
+                .join('\n');
+            
+            document.getElementById('arrayOutput').textContent = `Chained Operations Result:\n${result}`;
+        }
+
+        // 3. Destructuring
+        function arrayDestructuring() {
+            const colors = ['red', 'green', 'blue', 'yellow', 'purple'];
+            
+            // Different destructuring patterns
+            const [first, second] = colors;
+            const [primary, , tertiary] = colors;
+            const [head, ...tail] = colors;
+            const [r, g, b, alpha = 0.5] = colors;
+            
+            const output = `Original: [${colors.join(', ')}]
+First two: ${first}, ${second}
+Skip middle: ${primary}, ${tertiary}
+Head and tail: ${head} | [${tail.join(', ')}]
+With default: ${r}, ${g}, ${b}, alpha=${alpha}`;
+            
+            document.getElementById('destructuringOutput').textContent = output;
+        }
+        
+        function objectDestructuring() {
+            const user = {
+                name: 'Alice',
+                age: 25,
+                email: 'alice@example.com',
+                address: {
+                    city: 'New York',
+                    country: 'USA',
+                    coordinates: { lat: 40.7128, lng: -74.0060 }
+                },
+                preferences: {
+                    theme: 'dark',
+                    notifications: true
+                }
+            };
+            
+            // Various destructuring patterns
+            const { name, email } = user;
+            const { name: userName, age: userAge } = user;
+            const { phone = 'N/A' } = user;
+            const { address: { city, country } } = user;
+            
+            const output = `Basic: ${name}, ${email}
+Renamed: ${userName} is ${userAge} years old
+Default: Phone = ${phone}
+Nested: Lives in ${city}, ${country}`;
+            
+            document.getElementById('destructuringOutput').textContent = output;
+        }
+        
+        function nestedDestructuring() {
+            const response = {
+                data: {
+                    users: [
+                        { id: 1, profile: { name: 'Alice', settings: { theme: 'dark' } } },
+                        { id: 2, profile: { name: 'Bob', settings: { theme: 'light' } } }
+                    ]
+                },
+                meta: { total: 2, page: 1 }
+            };
+            
+            // Deep destructuring
+            const { 
+                data: { 
+                    users: [
+                        { profile: { name: firstName } },
+                        { profile: { settings: { theme } } }
+                    ]
+                },
+                meta: { total }
+            } = response;
+            
+            const output = `Deep destructuring:
+First user name: ${firstName}
+Second user theme: ${theme}
+Total users: ${total}`;
+            
+            document.getElementById('destructuringOutput').textContent = output;
+        }
+
+        // 4. Classes
+        class Person {
+            constructor(name, email, age) {
+                this.name = name;
+                this.email = email;
+                this.age = age;
+                this.id = Date.now() + Math.random();
+            }
+            
+            greet() {
+                return `Hello, I'm ${this.name}!`;
+            }
+            
+            get info() {
+                return `${this.name} (${this.age}) - ${this.email}`;
+            }
+            
+            celebrateBirthday() {
+                this.age++;
+                return `🎉 ${this.name} is now ${this.age} years old!`;
+            }
+            
+            static compareAges(person1, person2) {
+                return person1.age - person2.age;
+            }
+        }
+        
+        class Student extends Person {
+            constructor(name, email, age, school, grade) {
+                super(name, email, age);
+                this.school = school;
+                this.grade = grade;
+                this.courses = [];
+            }
+            
+            enrollCourse(course) {
+                this.courses.push(course);
+                return `${this.name} enrolled in ${course}`;
+            }
+            
+            get studentInfo() {
+                return `${this.info} - ${this.school} (Grade: ${this.grade})`;
+            }
+        }
+        
+        function createUser() {
+            const name = document.getElementById('newUserName').value;
+            const email = document.getElementById('newUserEmail').value;
+            const age = parseInt(document.getElementById('newUserAge').value);
+            
+            const user = new Person(name, email, age);
+            userInstances.push(user);
+            
+            const output = `Created User:
+${user.greet()}
+${user.info}
+Birthday: ${user.celebrateBirthday()}`;
+            
+            document.getElementById('classOutput').textContent = output;
+            updateUserCards();
+        }
+        
+        function createStudent() {
+            const name = document.getElementById('newUserName').value;
+            const email = document.getElementById('newUserEmail').value;
+            const age = parseInt(document.getElementById('newUserAge').value);
+            
+            const student = new Student(name, email, age, 'Tech University', 'A+');
+            student.enrollCourse('Modern JavaScript');
+            student.enrollCourse('React Development');
+            userInstances.push(student);
+            
+            const output = `Created Student:
+${student.greet()}
+${student.studentInfo}
+${student.enrollCourse('Node.js')}
+Courses: ${student.courses.join(', ')}`;
+            
+            document.getElementById('classOutput').textContent = output;
+            updateUserCards();
+        }
+        
+        function updateUserCards() {
+            const container = document.getElementById('userCards');
+            container.innerHTML = userInstances.map(user => `
+                <div class="user-card">
+                    <h4>${user.name}</h4>
+                    <p>${user.email} | Age: ${user.age}</p>
+                    ${user.school ? `<p>🎓 ${user.school}</p>` : ''}
+                    ${user.courses ? `<p>📚 ${user.courses.length} courses</p>` : ''}
+                </div>
+            `).join('');
+        }
+
+        // 5. Async/Await
+        const simulateAPI = (url, delay = 1000) => {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    if (Math.random() > 0.8) {
+                        reject(new Error(`Failed to fetch ${url}`));
+                    } else {
+                        const data = {
+                            '/api/users': { users: ['Alice', 'Bob', 'Charlie'] },
+                            '/api/posts': { posts: ['Post 1', 'Post 2', 'Post 3'] },
+                            '/api/comments': { comments: ['Great!', 'Nice work!', 'Awesome!'] }
+                        };
+                        resolve(data[url] || { message: 'Data loaded', url, timestamp: new Date() });
+                    }
+                }, delay);
+            });
+        };
+        
+        async function fetchUserData() {
+            const output = document.getElementById('asyncOutput');
+            output.innerHTML = '<span class="loading">⏳</span> Loading user data...';
+            
+            try {
+                const userData = await simulateAPI('/api/users', 1500);
+                output.textContent = `✅ Users loaded: ${JSON.stringify(userData, null, 2)}`;
+            } catch (error) {
+                output.innerHTML = `<div class="error">❌ Error: ${error.message}</div>`;
+            }
+        }
+        
+        async function fetchMultipleData() {
+            const output = document.getElementById('asyncOutput');
+            output.innerHTML = '<span class="loading">⏳</span> Loading multiple APIs...';
+            
+            try {
+                // Parallel API calls
+                const [users, posts, comments] = await Promise.all([
+                    simulateAPI('/api/users', 800),
+                    simulateAPI('/api/posts', 1200),
+                    simulateAPI('/api/comments', 600)
+                ]);
+                
+                output.innerHTML = `<div class="success">✅ All data loaded!</div>
+Users: ${users.users.join(', ')}
+Posts: ${posts.posts.join(', ')}
+Comments: ${comments.comments.join(', ')}`;
+            } catch (error) {
+                output.innerHTML = `<div class="error">❌ One or more requests failed: ${error.message}</div>`;
+            }
+        }
+        
+        async function handleErrors() {
+            const output = document.getElementById('asyncOutput');
+            output.innerHTML = '<span class="loading">⏳</span> Testing error handling...';
+            
+            const attemptFetch = async (attempt) => {
+                try {
+                    const data = await simulateAPI('/api/unreliable', 500);
+                    return `✅ Attempt ${attempt}: Success!`;
+                } catch (error) {
+                    return `❌ Attempt ${attempt}: ${error.message}`;
+                }
+            };
+            
+            // Multiple attempts
+            const results = await Promise.all([
+                attemptFetch(1),
+                attemptFetch(2),
+                attemptFetch(3)
+            ]);
+            
+            output.textContent = results.join('\n');
+        }
+
+        // 6. Modern DOM Manipulation
+        function createElements() {
+            const container = document.getElementById('dynamicContent');
+            
+            // Create elements with modern syntax
+            const elements = Array.from({ length: 5 }, (_, i) => {
+                const div = document.createElement('div');
+                div.className = 'user-card';
+                div.innerHTML = `
+                    <h4>Dynamic Item ${i + 1}</h4>
+                    <p>Created at: ${new Date().toLocaleTimeString()}</p>
+                    <button onclick="this.parentElement.remove()">Remove</button>
+                `;
+                return div;
+            });
+            
+            container.replaceChildren(...elements);
+            
+            document.getElementById('domOutput').textContent = `Created ${elements.length} dynamic elements with modern DOM methods!`;
+        }
+        
+        function addEventDelegation() {
+            const container = document.getElementById('dynamicContent');
+            
+            // Remove existing listeners and add new one
+            const newContainer = container.cloneNode(true);
+            container.parentNode.replaceChild(newContainer, container);
+            
+            // Event delegation
+            newContainer.addEventListener('click', (e) => {
+                if (e.target.matches('button')) {
+                    e.target.closest('.user-card').style.transform = 'scale(0)';
+                    setTimeout(() => {
+                        e.target.closest('.user-card')?.remove();
+                    }, 300);
+                }
+                
+                if (e.target.matches('.user-card')) {
+                    e.target.style.background = `linear-gradient(45deg, #${Math.floor(Math.random()*16777215).toString(16)}, #${Math.floor(Math.random()*16777215).toString(16)})`;
+                }
+            });
+            
+            document.getElementById('domOutput').textContent = 'Event delegation added! Click cards to change color, buttons to remove.';
+        }
+
+        // 7. Spread & Rest
+        function spreadArrays() {
+            const arr1 = [1, 2, 3];
+            const arr2 = [4, 5, 6];
+            const arr3 = [7, 8, 9];
+            
+            // Spread operations
+            const combined = [...arr1, ...arr2, ...arr3];
+            const withExtra = [0, ...arr1, 3.5, ...arr2, 10];
+            const copy = [...arr1];
+            const max = Math.max(...combined);
+            const min = Math.min(...combi

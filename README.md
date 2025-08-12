@@ -1,1 +1,1 @@
-# Modern JS Training 
+# Modern JS Practice Problems 

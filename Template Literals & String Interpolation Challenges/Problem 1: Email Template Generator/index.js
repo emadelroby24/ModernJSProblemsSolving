@@ -19,20 +19,31 @@ const generateMessage = () => {
         taxRate: 0.08
     };
 
-    const subject = `Subject: Order Confirmation #${order.id}`;
-    const welcome = `Dear ${user.name}`;
-    const orderId = `Order ID: ${order.id}`;
-    const address = `Shipping Address: ${order.shippingAddress}`;
-
     const items = order.items.map(item => `- ${item.name} x${item.quantity} ........... $${(item.price * item.quantity).toFixed(2)}`).join('\n');
 
     const subTotal = order.items.reduce((sum, item) => (item.price * item.quantity) + sum, 0);
     const tax = subTotal*order.taxRate;
     const total = subTotal + tax;
 
-    const vip = `${user.isVIP ? `Current Loyalty Points: ${user.loyaltyPoints}` : ''}`;
+    const email = `Subject: Order Confirmation #${order.id}
+    
+Dear ${user.name}
 
-    const email = `${subject}\n\n${welcome}\n\nThank you for your order! Here are your order details:\n\n${orderId}\n${address}\n\nItems Ordered:\n${items}\n\nSubtotal: $${subTotal}\nTax: $${tax}\nTotal: $${total}\n\n${vip}`;
+Thank you for your order! Here are your order details:
+
+Order ID: ${order.id}
+Shipping Address: ${order.shippingAddress}
+
+Items Ordered:
+${items}
+
+Subtotal: $${subTotal.toFixed(2)}
+Tax: $${tax.toFixed(2)}
+Total: $${total.toFixed(2)}
+
+${user.isVIP ? `🌟 VIP Member Benefits Applied! 
+Current Loyalty Points: ${user.loyaltyPoints}` : ''}`;
+
     document.getElementById('messageOutput').textContent = email;
 
 }

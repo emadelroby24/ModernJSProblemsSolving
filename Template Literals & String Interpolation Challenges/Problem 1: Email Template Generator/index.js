@@ -24,7 +24,7 @@ const generateMessage = () => {
     const orderId = `Order ID: ${order.id}`;
     const address = `Shipping Address: ${order.shippingAddress}`;
 
-    const items = order.items.map(item => `- ${item.name} x${item.quantity} ........... $${item.price}`).join('\n');
+    const items = order.items.map(item => `- ${item.name} x${item.quantity} ........... $${parseFloat(item.price * item.quantity).toFixed(2)}`).join('\n');
 
     const subTotal = parseFloat(order.items.reduce((sum, item) => (item.price * item.quantity) + sum, 0).toFixed(2));
     const tax = parseFloat((subTotal*order.taxRate).toFixed(2));

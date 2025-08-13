@@ -40,13 +40,13 @@ const generateMessage = () => {
         teacher: "Ms. Rodriguez"
     }
 
-    let totalGpaScroe = 0;
+    let totalGpaPoints = 0;
     const numOfSubjects = student.subjects.length;
 
-    const subNScores = `${student.subjects.map((subject)=> {
-                    const grandInfo = calcGpa(subject.score);
-                    totalGpaScroe += subject.score;
-                    return `|${subject.name.padEnd(16, ' ')}|${JSON.stringify(subject.score).padEnd(14, ' ')}|${grandInfo.grade.padEnd(10, ' ')}|${grandInfo.gpa.toFixed(1).padEnd(8, ' ')}|`
+    const subjectsDetails = `${student.subjects.map((subject)=> {
+                    const gradeInfo = calcGpa(subject.score);
+                    totalGpaPoints += gradeInfo.gpa;
+                    return `|${subject.name.padEnd(16, ' ')}|${JSON.stringify(subject.score).padEnd(14, ' ')}|${gradeInfo.grade.padEnd(10, ' ')}|${gradeInfo.gpa.toFixed(1).padEnd(8, ' ')}|`
                 })
                 .join('\n-----------------------------------------------------\n')}`;
     const msg = `Report Card - #${student.id} / Grade: ${student.grade}
@@ -60,11 +60,11 @@ This is your scores in the follwing subjects:
 -----------------------------------------------------
 |Subject Name    | Score        |Grade     |GPA     |
 -----------------------------------------------------
-${subNScores}
+${subjectsDetails}
 -----------------------------------------------------
 
-GPA Is: ${calcGpa(totalGpaScroe / numOfSubjects).grade}
-This GPA Description Is: ${getGpaDescription(calcGpa(totalGpaScroe / numOfSubjects).gpa)}
+GPA Is: ${calcGpa(totalGpaPoints / numOfSubjects).grade}
+This GPA Description Is: ${getGpaDescription(calcGpa(totalGpaPoints / numOfSubjects).gpa)}
 
 You Full Attendance: ${student.attendance}%`; 
 

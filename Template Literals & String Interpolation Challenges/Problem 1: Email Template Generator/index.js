@@ -27,7 +27,7 @@ const generateMessage = () => {
 
     const email = `Subject: Order Confirmation #${order.id}
     
-Dear ${user.name}
+Dear ${user.name},
 
 Thank you for your order! Here are your order details:
 

@@ -55,7 +55,6 @@ const generateMessage = () => {
 
     const msg = `Report Card - #${student.id} / Grade: ${student.grade}
     
-
 Teacher Name: ${student.teacher}
     
 Dear ${student.name},

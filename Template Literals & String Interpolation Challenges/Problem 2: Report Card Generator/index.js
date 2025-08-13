@@ -42,6 +42,7 @@ const generateMessage = () => {
 
     let totalGpaPoints = 0;
     const numOfSubjects = student.subjects.length;
+    
 
     const subjectsDetails = `${student.subjects.map((subject)=> {
                     const gradeInfo = calcGpa(subject.score);
@@ -49,6 +50,9 @@ const generateMessage = () => {
                     return `|${subject.name.padEnd(16)}|${subject.score.toString().padEnd(14)}|${gradeInfo.grade.padEnd(10)}|${gradeInfo.gpa.toFixed(1).padEnd(8)}|`
                 })
                 .join('\n-----------------------------------------------------\n')}`;
+
+    const finalGpa = totalGpaPoints / numOfSubjects;
+
     const msg = `Report Card - #${student.id} / Grade: ${student.grade}
     
 
@@ -56,17 +60,17 @@ Teacher Name: ${student.teacher}
     
 Dear ${student.name},
 
-This is your scores in the follwing subjects:
+This is your scores in the following subjects:
 -----------------------------------------------------
 |Subject Name    | Score        |Grade     |GPA     |
 -----------------------------------------------------
 ${subjectsDetails}
 -----------------------------------------------------
 
-GPA Is: ${calcGpa(totalGpaPoints / numOfSubjects).grade}
-This GPA Description Is: ${getGpaDescription(calcGpa(totalGpaPoints / numOfSubjects).gpa)}
+GPA Is: ${finalGpa.toFixed(1)}
+This GPA Description Is: ${getGpaDescription(parseFloat(finalGpa.toFixed(1)))}
 
-You Full Attendance: ${student.attendance}%`; 
+Your Full Attendance: ${student.attendance}%`; 
 
 
     document.getElementById('messageOutput').textContent = msg;

@@ -46,7 +46,7 @@ const generateMessage = () => {
     const subjectsDetails = `${student.subjects.map((subject)=> {
                     const gradeInfo = calcGpa(subject.score);
                     totalGpaPoints += gradeInfo.gpa;
-                    return `|${subject.name.padEnd(16, ' ')}|${JSON.stringify(subject.score).padEnd(14, ' ')}|${gradeInfo.grade.padEnd(10, ' ')}|${gradeInfo.gpa.toFixed(1).padEnd(8, ' ')}|`
+                    return `|${subject.name.padEnd(16, ' ')}|${subject.score.toString().padEnd(14, ' ')}|${gradeInfo.grade.padEnd(10, ' ')}|${gradeInfo.gpa.toFixed(1).padEnd(8, ' ')}|`
                 })
                 .join('\n-----------------------------------------------------\n')}`;
     const msg = `Report Card - #${student.id} / Grade: ${student.grade}
